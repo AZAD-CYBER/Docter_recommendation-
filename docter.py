@@ -80,8 +80,8 @@ if 'name' in df.columns:
     # rest of the code
     for i in indices[0]:
       print(df.iloc[i]['name'])
-      # print(df.iloc[i]["rating"],end=" ")
-      # print(df.iloc[i]["experience"],end=" ")
+    #   print(df.iloc[i]["rating"],end=" ")
+      print(df.iloc[i]["experience"],end=" ")
       # print(df.iloc[i]["location"])
       
 else:
