@@ -1,20 +1,35 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS,cross_origin
 import pickle
 import pandas as pd
 import numpy as np
+
+import random
 # load the trained model
 model = pickle.load(open('model.pkl', 'rb'))
 # load the doctor data
-import random
+
 df = pd.read_csv('doctor.csv', encoding='ISO-8859-1')
-from flask import Flask
-from flask_cors import CORS
+
 
 # initialize the Flask app
 app = Flask(__name__)
+
+app.config['CORS_ENABLED'] = True
+
 CORS(app)
+@app.after_request
+def add_cors_headers(response):
+    # replace '*' with the URL of your frontend
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    return response
+
+
 # define the API endpoint
 @app.route('/recommend', methods=['POST'])
+
 def recommend():
     # parse the request data
     data = request.get_json()
@@ -47,4 +62,4 @@ def recommend():
 
 # start the app
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8000, debug=True)
