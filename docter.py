@@ -44,8 +44,7 @@ features = df[['rating', 'experience']]
 
 # convert location to numerical values
 le = LabelEncoder()
-df['location'] = le.fit_transform(df['location'])
-features['location'] = df['location']
+
 # df.loc[:, 'location'] = df['location']
 
 features.head(10)
